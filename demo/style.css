@@ -1,0 +1,19 @@
+textarea {
+    width: 100%;
+}
+
+pre {
+    font-size: 1em !important;
+}
+
+.options {
+    list-style-type: upper-alpha;
+}
+
+.answer-option {
+    font-weight: bold;
+}
+
+#examples {
+    width: 200px;
+}

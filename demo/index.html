@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+
+    <title>CDG demo</title>
+</head>
+
+<body>
+    <div class="container py-5">
+        <h1 class="title text-center">Cloze Distractor Generation</h1>
+        <hr class="my-4">
+        <div id="article-container">
+            <label for="article">Please enter an article for cloze test:</label><br>
+            <textarea name="article" id="article" rows="10"></textarea>
+        </div>
+        <div id="confirmed-article-container">
+            <label for="confirmed-article">Please highlight some words for blank:</label><br>
+            <textarea name="confirmed-article" id="confirmed-article" rows="10" readonly></textarea>
+        </div>
+        <p id="display-selections"></p>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
+                <button id="confirm" class="btn btn-primary me-2">Confirm <i class="bi bi-check-lg"></i></button>
+                <button id="reset" class="btn btn-danger me-2">Reset <i class="bi bi-arrow-clockwise"></i></button>
+                <button id="generate" class="btn btn-success me-2">Generate <i class="bi bi-caret-right"></i></button>
+            </div>
+            <select name="examples" id="examples" class="form-select">
+                <option value="customize" selected>Customize</option>
+                <option value="example1">Example1</option>
+                <option value="example2">Example2</option>
+            </select>
+        </div>
+        <div id="result" class="card mt-3">
+            <div class="card-body">
+                <h5>Stem:</h5>
+                <p id="stem">
+                    <span class="word">Hello</span> <span class="word">World</span>
+                </p>
+                <h5>Questions:</h5>
+                <ol id="questions">
+                    <li class="my-3">
+                        <ol class="options">
+                            <li>easily</li>
+                            <li>correctly</li>
+                            <li class="answer-option">truly</li>
+                            <li>clearly</li>
+                        </ol>
+                    </li>
+                    <li class="my-3">
+                        <ol class="options">
+                            <li>lovely</li>
+                            <li class="answer-option">alive</li>
+                            <li>lively</li>
+                            <li>living</li>
+                        </ol>
+                    </li>
+                </ol>
+                <h5>Answer:</h5>
+                <ol>
+                    <li>A</li>
+                    <li>B</li>
+                </ol>
+                <div class="d-flex">
+                    <button class="btn btn-secondary me-2">Copy to clipboard</button>
+                    <button class="btn btn-secondary me-2">Download .txt</button>
+                    <button class="btn btn-secondary me-2">Download .json</button>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="footer text-center">
+            <div class="d-flex justify-content-center my-2">
+                <a class="mx-2" href="">GitHub</a>
+                <a class="mx-2" href="">Views</a>
+            </div>
+            <small>Copyright© 2021 Andy Chiang</small>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>
