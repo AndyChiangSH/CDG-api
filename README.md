@@ -1,2 +1,2 @@
-# CDG-api
-Cloze Distractor Generation - API
+# CDG-demo
+Cloze Distractor Generation - Demo
