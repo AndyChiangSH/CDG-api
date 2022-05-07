@@ -91,6 +91,7 @@ $(function () {
             $("#start-icon").hide();
             $("#loading-icon").show();
             copy_text = "";
+            json_obj = {};
 
             const API_URL = "/api"
             $.ajax({
@@ -101,6 +102,7 @@ $(function () {
                 success: function (response) {
                     $("#result").slideDown(300);
                     console.log(response);
+                    json_obj = response;
                     let stem = response["stem"];
                     let options = response["options"];
 
@@ -164,16 +166,6 @@ $(function () {
         }
     }
 
-    var copy_text = "";
-
-    $("#copy-to-clipboard").click(function () {
-        navigator.clipboard.writeText(copy_text).then(function () {
-            alert("Copy to clipboard successful.");
-        }, function (err) {
-            alert("Copy to clipboard fail!");
-        });
-    })
-
     function num2en(i) {
         if (i == 0) {
             return "A";
@@ -188,4 +180,29 @@ $(function () {
             return "D";
         }
     }
+
+    var copy_text = "";
+    var json_obj = {};
+
+    $("#copy-to-clipboard").click(function () {
+        navigator.clipboard.writeText(copy_text).then(function () {
+            alert("Copy to clipboard successful.");
+        }, function (err) {
+            alert("Copy to clipboard fail!");
+        });
+    })
+
+    $("#download-txt").click(function () {
+        // console.log("download txt");
+        // console.log(this);
+        this.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(copy_text));
+        this.setAttribute('download', "cloze.txt");
+    })
+
+    $("#download-json").click(function () {
+        // console.log("download json");
+        // console.log(this);
+        this.setAttribute('href', 'data:json/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(json_obj)));
+        this.setAttribute('download', "cloze.json");
+    })
 })
