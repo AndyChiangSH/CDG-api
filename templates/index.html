@@ -32,7 +32,12 @@
             <div class="d-flex">
                 <button id="confirm" class="btn btn-primary me-2">Confirm <i class="bi bi-check-lg"></i></button>
                 <button id="reset" class="btn btn-danger me-2">Reset <i class="bi bi-arrow-clockwise"></i></button>
-                <button id="generate" class="btn btn-success me-2">Generate <i class="bi bi-caret-right"></i></button>
+                <button id="generate" class="btn btn-success me-2">Generate
+                    <i id="start-icon" class="bi bi-caret-right"></i>
+                    <div id="loading-icon" class="spinner-border spinner-border-sm text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
             </div>
             <select name="examples" id="examples" class="form-select">
                 <option value="customize" selected>Customize</option>
@@ -43,33 +48,11 @@
         <div id="result" class="card mt-3">
             <div class="card-body">
                 <h5>Stem:</h5>
-                <p id="stem">
-                    <span class="word">Hello</span> <span class="word">World</span>
-                </p>
+                <p id="stem"></p>
                 <h5>Options:</h5>
-                <ol id="questions">
-                    <li class="my-3">
-                        <ol class="options">
-                            <li>easily</li>
-                            <li>correctly</li>
-                            <li class="answer-option">truly</li>
-                            <li>clearly</li>
-                        </ol>
-                    </li>
-                    <li class="my-3">
-                        <ol class="options">
-                            <li>lovely</li>
-                            <li class="answer-option">alive</li>
-                            <li>lively</li>
-                            <li>living</li>
-                        </ol>
-                    </li>
-                </ol>
-                <h5>Answer:</h5>
-                <ol>
-                    <li>A</li>
-                    <li>B</li>
-                </ol>
+                <ol id="questions"></ol>
+                <h5>Answers:</h5>
+                <ol id="answers"></ol>
                 <div class="d-flex">
                     <button class="btn btn-secondary me-2">Copy to clipboard</button>
                     <button class="btn btn-secondary me-2">Download .txt</button>

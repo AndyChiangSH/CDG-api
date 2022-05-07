@@ -11,6 +11,8 @@ $(function () {
         $("#confirmed-article-container").hide();
         selection_list = [];
         $("#display-selections").html("");
+        $("#start-icon").show();
+        $("#loading-icon").hide();
     }
     init();
 
@@ -31,24 +33,25 @@ $(function () {
     })
 
     $("#confirm").click(function () {
-        $("#confirm").hide();
-        $("#examples").hide();
-        $("#reset").show();
-        $("#generate").show();
-
         let article = $("#article").val();
-        console.log(article);
-        $("#article-container").hide();
-        $("#confirmed-article-container").show();
-        $("#confirmed-article").val(article);
+        if (article.trim() == "") {
+            alert("Input can't be empty!");
+        }
+        else {
+            $("#confirm").hide();
+            $("#examples").hide();
+            $("#reset").show();
+            $("#generate").show();
+
+            // console.log(article);
+            $("#article-container").hide();
+            $("#confirmed-article-container").show();
+            $("#confirmed-article").val(article);
+        }
     })
 
     $("#reset").click(function () {
         init();
-    })
-
-    $("#generate").click(function () {
-        $("#result").show();
     })
 
     function select_article(event) {
@@ -56,7 +59,7 @@ $(function () {
         let end = event.target.selectionEnd;
         let article = event.target.value;
         let selection = article.substring(start, end);
-        console.log(article, selection, start, end);
+        // console.log(article, selection, start, end);
 
         new_article = article.slice(0, start) + "[" + selection + "]" + article.slice(end);
         $("#confirmed-article").val(new_article);
@@ -69,10 +72,98 @@ $(function () {
         for (let i = 0; i < selection_list.length; i++) {
             display += "<span class='badge bg-primary mx-1'>" + selection_list[i] + "</span>"
         }
-        console.log(display);
+        // console.log(display);
         $("#display-selections").html(display);
     }
 
     const confirmed_article = document.querySelector("#confirmed-article");
     confirmed_article.addEventListener("select", select_article);
+
+    $("#generate").click(function () {
+        if (selection_list.length == 0) {
+            alert("Please highlight at least one word for blank!");
+        }
+        else {
+            $("#stem").html("");
+            $("#questions").html("");
+            $("#answers").html("");
+            $("#result").hide();
+            $("#start-icon").hide();
+            $("#loading-icon").show();
+
+            const API_URL = "/api"
+            $.ajax({
+                url: API_URL,
+                type: "POST",
+                data: { stem: $("#confirmed-article").val() },
+                dataType: "JSON",
+                success: function (response) {
+                    $("#result").slideDown(300);
+                    console.log(response);
+                    let stem = response["stem"];
+                    let options = response["options"];
+
+                    $("#stem").html(stem);
+
+                    let answers_list = [];
+                    let questions_text = "";
+                    for (let i = 0; i < options.length; i++) {
+                        questions_text += '<li class="my-3"><ol class="options">';
+                        let options_len = options[i]["distractors"].length + 1;
+                        let answer = options[i]["answer"];
+                        let answer_index = Math.floor(Math.random() * options_len);
+                        let distractors = options[i]["distractors"];
+                        shuffle(distractors);
+                        let distractors_index = 0;
+                        for (let j = 0; j < options_len; j++) {
+                            if (j == answer_index) {
+                                questions_text += '<li class="answer-option">' + answer + '</li>';
+                            }
+                            else {
+                                questions_text += '<li>' + distractors[distractors_index] + '</li>';
+                                distractors_index++;
+                            }
+                        }
+                        questions_text += '</ol></li>';
+
+                        if (answer_index == 0) {
+                            answers_list.push("A");
+                        }
+                        else if (answer_index == 1) {
+                            answers_list.push("B");
+                        }
+                        else if (answer_index == 2) {
+                            answers_list.push("C");
+                        }
+                        else {
+                            answers_list.push("D");
+                        }
+                    }
+                    $("#questions").html(questions_text);
+
+                    let answers_text = "";
+                    for (let i = 0; i < answers_list.length; i++) {
+                        answers_text += '<li>' + answers_list[i] + '</li>';
+                    }
+                    $("#answers").html(answers_text);
+                    // console.log(answers_list);
+                },
+                error: function (thrownError) {
+                    // console.log("error msg:", thrownError);
+                    alert("API ERROR!\nPlease let us know, and we will fix it as soon as possible.");
+                },
+                complete: function () {
+                    $("#start-icon").show();
+                    $("#loading-icon").hide();
+                }
+            });
+        }
+    });
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
 })
