@@ -17,7 +17,7 @@ $(function () {
     init();
 
     example1 = "You had better learn to be grateful. If you are grateful, you naturally open yourself up to receive all kinds of blessings and good things in life. You can receive almost everything you want truly. If you want recovery soon, start by feeling grateful that you are still alive. If it is more money that you want, start being grateful for whatever amount of money you already have."
-    example2 = "Google LLC is an American multinational technology company that focuses on artificial intelligence, search engine, online advertising, cloud computing, computer software, quantum computing, e-commerce, and consumer electronics. It has been referred to as the 'most powerful company in the world' and one of the world's most valuable brands due to its market dominance, data collection, and technological advantages in the area of artificial intelligence. It is considered one of the Big Five American information technology companies, alongside Amazon, Apple, Meta, and Microsoft."
+    example2 = "Twenty-one years ago, my husband gave me Sam, an eight-week-old dog, to help me ease the loss of our daughter. Later my husband and I moved from New York to New Jersey where our neighbor, whose cat had recently had kittens, asked us if we would like one. We were afraid that Sam would not be glad, but we made up our minds to take a kitten. We picked a little, gray, playful cat. She raced around running after imaginary mice and squirrels and jumped from table to chair very quickly, so we named her Lightning."
 
     $("#examples").change(function () {
         let value = $("#examples").val();
@@ -90,6 +90,7 @@ $(function () {
             $("#result").hide();
             $("#start-icon").hide();
             $("#loading-icon").show();
+            copy_text = "";
 
             const API_URL = "/api"
             $.ajax({
@@ -104,11 +105,14 @@ $(function () {
                     let options = response["options"];
 
                     $("#stem").html(stem);
+                    copy_text += "Stem:\n" + stem + "\n"
 
                     let answers_list = [];
                     let questions_text = "";
+                    copy_text += "Options:\n";
                     for (let i = 0; i < options.length; i++) {
                         questions_text += '<li class="my-3"><ol class="options">';
+                        copy_text += (i + 1).toString() + ".\n";
                         let options_len = options[i]["distractors"].length + 1;
                         let answer = options[i]["answer"];
                         let answer_index = Math.floor(Math.random() * options_len);
@@ -118,32 +122,25 @@ $(function () {
                         for (let j = 0; j < options_len; j++) {
                             if (j == answer_index) {
                                 questions_text += '<li class="answer-option">' + answer + '</li>';
+                                copy_text += num2en(j) + ". " + answer + "\n";
                             }
                             else {
                                 questions_text += '<li>' + distractors[distractors_index] + '</li>';
+                                copy_text += num2en(j) + ". " + distractors[distractors_index] + "\n";
                                 distractors_index++;
                             }
                         }
                         questions_text += '</ol></li>';
 
-                        if (answer_index == 0) {
-                            answers_list.push("A");
-                        }
-                        else if (answer_index == 1) {
-                            answers_list.push("B");
-                        }
-                        else if (answer_index == 2) {
-                            answers_list.push("C");
-                        }
-                        else {
-                            answers_list.push("D");
-                        }
+                        answers_list.push(num2en(answer_index));
                     }
                     $("#questions").html(questions_text);
 
                     let answers_text = "";
+                    copy_text += "Answers:\n";
                     for (let i = 0; i < answers_list.length; i++) {
                         answers_text += '<li>' + answers_list[i] + '</li>';
+                        copy_text += (i + 1).toString() + ". " + answers_list[i] + "\n";
                     }
                     $("#answers").html(answers_text);
                     // console.log(answers_list);
@@ -164,6 +161,31 @@ $(function () {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    var copy_text = "";
+
+    $("#copy-to-clipboard").click(function () {
+        navigator.clipboard.writeText(copy_text).then(function () {
+            alert("Copy to clipboard successful.");
+        }, function (err) {
+            alert("Copy to clipboard fail!");
+        });
+    })
+
+    function num2en(i) {
+        if (i == 0) {
+            return "A";
+        }
+        else if (i == 1) {
+            return "B";
+        }
+        else if (i == 2) {
+            return "C";
+        }
+        else {
+            return "D";
         }
     }
 })
