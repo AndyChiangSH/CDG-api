@@ -130,3 +130,5 @@ dmypy.json
 
 # My ignore
 CDG-demo-env/
+models/
+test.py
