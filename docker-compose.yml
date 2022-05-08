@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  cdgp-demo:
+    image: nchunlplab/cdgp-demo:latest
+    container_name: cdgp-demo
+    build: .
+    ports:
+      - "11013:5000"
+    restart: always

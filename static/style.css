@@ -1,9 +1,6 @@
 textarea {
     width: 100%;
-}
-
-pre {
-    font-size: 1em !important;
+    font-family: monospace;
 }
 
 .options {
@@ -16,4 +13,10 @@ pre {
 
 #examples {
     width: 200px;
+}
+
+.title {
+    font-family: monospace;
+    font-size: 3rem;
+    font-weight: bold;
 }

@@ -1,5 +1,6 @@
 import nltk
 nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 from flask import Flask, render_template, request
 import re
 import os
@@ -188,7 +189,7 @@ def min_max_y(raw_data):
 
 
 if __name__ == '__main__':
+    print("Start APP...")
     
-    
-    app.run()
+    app.run(host="0.0.0.0")
     # app.run(debug=True)
