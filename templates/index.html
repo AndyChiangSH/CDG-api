@@ -11,13 +11,14 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
 
-    <title>CDG demo</title>
+    <title>CDGP demo</title>
 </head>
 
 <body>
     <div class="container py-5">
-        <h1 class="title text-center">Cloze Distractor Generation</h1>
+        <h1 class="title text-center">Cloze Distractor Generator</h1>
         <hr class="my-4">
         <div id="article-container">
             <label for="article">Please enter an article for cloze test:</label><br>
@@ -73,7 +74,8 @@
                     <img alt="GitHub Repo stars"
                         src="https://img.shields.io/github/stars/AndyChiangSH/CDG-demo?style=social">
                 </a>
-                <a class="mx-2" href="">Views</a>
+                <img class="mx-2"
+                    src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fcdgp-demo.nlpnchu.org&count_bg=%233DC899&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Views&edge_flat=false" />
             </div>
             <small>Copyright© 2021 Andy Chiang</small>
         </div>

@@ -2,6 +2,7 @@ import nltk
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 from flask import Flask, render_template, request
+from flask_cors import cross_origin
 import re
 import os
 import json
@@ -37,6 +38,7 @@ def index():
 
 
 @app.route("/api/", methods=["GET", "POST"])
+@cross_origin()
 def api():
     if request.method == "GET":
         return "API OK!"

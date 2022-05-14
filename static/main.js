@@ -93,7 +93,7 @@ $(function () {
             copy_text = "";
             json_obj = {};
 
-            const API_URL = "/api"
+            const API_URL = "/api/"
             $.ajax({
                 url: API_URL,
                 type: "POST",
